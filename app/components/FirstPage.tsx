@@ -1,13 +1,19 @@
+import Calender from "./subComponents/Calender";
+import TripMap from "./subComponents/TripMap";
 
 
 const FirstPage = () => {
   return (
       <section className="">
-          <div className="container mx-auto p-[4rem] border max-w-full grid grid-cols-4">
+          <div className="container mx-auto p-[4rem] border max-w-full grid grid-cols-5 gap-12">
               {/* left / calender & map */}
-              <div className="col-span-1 flex flex-col gap-5 bg-amber-200">
-                  <div>calender</div>
-                  <div>map</div>
+              <div className="col-span-2 flex flex-col gap-5">
+                  <div className="flex justify-center">
+                      <Calender />
+                  </div>
+                  <div>
+                    <TripMap />
+                  </div>
               </div>
               {/* card div */}
               <div className="col-span-3 bg-amber-800">FirstPage</div>
