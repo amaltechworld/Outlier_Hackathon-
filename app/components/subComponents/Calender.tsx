@@ -14,7 +14,7 @@ const Calender = () => {
 
     const [selected, setSelected] = useState<Date | undefined> (undefined); // typescript |date select
   return (
-      <div className="bg-transparent p-4 rounded-xl shadow-2xl z-10 ">
+      <div className="bg-transparent p-4 rounded-xl shadow-2xl z-10 min-w-[350px] ">
           <h2 className="text-lg font-semibold text-[#47663B] text-center">
               Your Travel Calender
           </h2>
