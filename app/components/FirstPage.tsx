@@ -1,23 +1,41 @@
 "use client"
 
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import Calender from "./subComponents/Calender";
-// import TripMap from "./subComponents/TripMap";
 import dynamic from "next/dynamic";
+import TripCradForm from "./subComponents/TripCradForm";
+import Card from "./subComponents/Card";
 
 const TripMap = dynamic(() => import("./subComponents/TripMap"), {
     ssr: false,
 });
 
+
+
+// const [selectedLocation, setSelectedLocation] = useState<[number, number]>([
+//     9.9312, 76.2673,
+// ]); // kochi, india
+
 const FirstPage = () => {
-
-const [selectedLocation, setSelectedLocation] = useState<[number, number]>([
-    9.9312, 76.2673,
-]); // kochi, india
-
-const handleCardClick = () => {
-    setSelectedLocation([28.6139, 77.209]); // delhi
-}
+    const [selectedLocationName, setSelectedLocationName] = useState<string | null>(null);
+    const [coords, setCoords] = useState<[number, number] >([
+        28.6139, 77.209,
+    ]); // delhi
+  
+    useEffect(() => {
+      const fetchCoordinates = async () => {
+        if (!selectedLocationName) return;
+  
+        const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${selectedLocationName}`);
+        const data = await res.json();
+  
+        if (data && data.length > 0) {
+          setCoords([parseFloat(data[0].lat), parseFloat(data[0].lon)]);
+        } 
+      };
+  
+      fetchCoordinates();
+    }, [selectedLocationName]);
 
   return (
       <section className="">
@@ -30,19 +48,17 @@ const handleCardClick = () => {
                   </div>
                   {/* map div */}
                   <div className="space-y-4">
-                      <button
-                          onClick={handleCardClick}
-                          className="bg-blue-500 text-white px-4 py-2 rounded"
-                      >
-                          select new delhi
-                      </button>
+
                       <div className="flex justify-center">
-                          <TripMap location={selectedLocation} />
+                          <TripMap location={coords} />
                       </div>
                   </div>
               </div>
               {/* card div */}
-              <div className="col-span-3 border">FirstPage</div>
+              <div className="col-span-3 border">
+                <Card setSelectedLocation={setSelectedLocationName}/>
+                  <TripCradForm />
+              </div>
           </div>
       </section>
   );

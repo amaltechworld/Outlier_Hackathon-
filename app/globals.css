@@ -18,3 +18,31 @@ body::before {
     z-index: 0;
     pointer-events: none;
 }
+
+.custom-scroll::-webkit-scrollbar{
+    width: 2px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+}
+
+/* animation to flip the card */
+
+.perspective {
+    perspective: 1000px;
+  }
+  
+  .transform-style-preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  
